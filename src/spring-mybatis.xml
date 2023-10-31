@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd">
+
+	<bean id="dbcp" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3307/car_manage?serverTimezone=UTC&amp;characterEncoding=utf8&amp;serverTimezone=GMT%2B8&amp;useSSL=false" />
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver" />
+	</bean>
+
+	<bean id="ssf" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dbcp" />
+		<property name="mapperLocations"
+			value="classpath:mapper/*.xml" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.dao" />
+	</bean>
+
+
+</beans>
